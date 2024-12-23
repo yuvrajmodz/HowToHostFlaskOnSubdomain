@@ -1,0 +1,160 @@
+HOW TO POINT A SUBDOMAIN TO PYTHON FLASK NGINX
+FOLLOW STEP BY STEP 
+
+
+1st STEP 
+
+OPEN CLOUDFLARE THEN GO TO YOUR DOMAIN 
+THEN GO TO DNS SETTING AND CREATE RECORD
+
+TYPE "A"
+NAME "<SUBDOMAIN NAME LIKE "testing123">"
+IPV4 ADDRESS "<VPS PUBLIC IP ADDRESS>"
+PROXY STATUS "ON"
+TTL "Auto"
+
+
+
+
+
+2nd STEP
+
+OPEN CLOUDFLARE AND GO TO YOUR DOMAIN
+THEN GO TO SSL/TLS SETTING
+THEN SWITCH ENCRYPTION MODE TO "Full (strict)"
+
+
+
+
+
+3rd STEP
+
+LOGIN YOUR UBUNTU VPS AND RUN BELOW COMMANDS
+
+"sudo apt update
+sudo apt install nginx"
+
+"sudo systemctl start nginx"
+
+"sudo systemctl enable nginx"
+
+"sudo systemctl status nginx"
+
+TO CONFIRM NGINX INSTALLED, GO TO "http://<your vps ip>"
+
+
+
+
+
+4th STEP
+
+G0 TO YOUR PYTHON SCRIPT AND IMPORT BELOW PAKEAGE 
+
+"import os"
+
+THEN REPLACE YOUR CODE TO BELOW CODE, FOR RUN YOUR APPLICATION ON YOUR CHOOSED PORT
+
+"if __name__ == '__main__':
+    port = int(os.environ.get('PORT', <PORT>))
+    app.run(host='0.0.0.0', port=port, debug=True)"
+
+REPLACE <PORT> TO YOUR SPECIFIC PORT
+
+
+
+
+
+5th STEP
+
+RUN YOUR PYTHON FLASK WITH NOHUP
+
+"nohup python3 app.py &"
+
+THEN YOUR APPLICATION HOSTED ON YOUR SPECIFIC PORT
+'http://<your vps public ip>:<your specific port>"
+
+
+
+
+
+6th STEP
+
+FOR HOST YOUR PYTHON APPLICATION ON YOUR SUBDOMAIN
+
+RUN BELOW COMMANDS
+
+"sudo nano /etc/nginx/sites-available/<YOUR SUBDOMAIN WITHOUT http/https>"
+
+AFTER RUN THIS COMMAND, YOUR EDITOR WILL OPEN, SO PASTE BELOW CODE IN EDITOR
+
+"server {
+    server_name <YOUR SUBDOMAIN WITHOUT http/https>;
+
+    location / {
+        proxy_pass http://127.0.0.1:<your specific port>;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    listen 80;
+}"
+
+AFTER PASTE THIS CODE IN EDITOR, THEN SAVE IT
+HOW TO SAVE? Below instruction
+
+ctrl+x
+Then Press "Y" in your keyboard
+Then Press Enter in your keyboard
+
+
+
+
+
+7th STEP
+
+THEN ENABLE YOUR NGINX BY BELOW CODE
+
+"sudo ln -s /etc/nginx/sites-available/<YOUR SUBDOMAIN WITHOUT http/https> /etc/nginx/sites-enabled/"
+
+THEN REMOVE OLD CONFIGRATION BY RUN THIS COMMAND
+
+"sudo rm /etc/nginx/sites-enabled/default"
+
+THEN RELOAD YOUR NGINX BY RUN BELOW COMMANDS
+
+"sudo systemctl reload nginx"
+
+
+
+
+
+8th STEP
+
+SSL INSTALL IN YOUR SUBDOMAIN BY RUN BELOW COMMANDS
+
+"sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx -d <YOUR SUBDOMAIN WITHOUT http/https>"
+
+TO RENEW YOUR SUBDOMAIN SSL AUTOMATICALLY, JUST RUN THIS COMMAND
+
+"sudo certbot renew --dry-run"
+
+
+
+
+
+9th STEP
+
+IF YOU FOLLOW ALL STEPS CAREFULLY
+THEN BOOOOOM!  YOUR PYTHON APPLICATION RUN ON YOUR SUBDOMAIN
+
+https://<yoursubdomain>"
+
+
+
+
+
+TEXT TUTORIAL WRITED BY
+@VZR7X   MATRIX DEVELOPER 2024-25
