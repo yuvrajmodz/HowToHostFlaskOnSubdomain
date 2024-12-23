@@ -156,5 +156,19 @@ https://<yoursubdomain>"
 
 
 
+PRO TIP
+
+FOR GUNICORN SETUP, RUN BELOW COMMANDS
+
+"pip install gunicorn"
+
+THEN RUN YOUR PYTHON FILE BY RUN THIS COMMANDS
+
+"nohup gunicorn -w 4 -b 0.0.0.0:<YOUR SPECIFIC PORT> app:app &"
+
+
+
+
+
 TEXT TUTORIAL WRITED BY
 @VZR7X   MATRIX DEVELOPER 2024-25
