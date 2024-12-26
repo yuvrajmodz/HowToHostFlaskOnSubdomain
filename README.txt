@@ -137,9 +137,13 @@ SSL INSTALL IN YOUR SUBDOMAIN BY RUN BELOW COMMANDS
 "sudo apt install certbot python3-certbot-nginx
 sudo certbot --nginx -d <YOUR SUBDOMAIN WITHOUT http/https>"
 
-TO RENEW YOUR SUBDOMAIN SSL AUTOMATICALLY, JUST RUN THIS COMMAND
+TO CHECK, SUBDOMAIN SSL RENEWABLE OR NOT, RUN BELOW COMMAND
 
 "sudo certbot renew --dry-run"
+
+TO RENEW YOUR SUBDOMAIN SSL, RUN BELOW COMMAND
+
+"sudo certbot renew"
 
 
 
