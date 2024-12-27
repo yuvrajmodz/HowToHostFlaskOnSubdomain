@@ -190,11 +190,7 @@ HOW TO REMOVE SUBDOMAIN, FOLLOW BELOW COMMAND, RUN BOTH COMMAND
 IF YOU RUN ANY PLAYWRIGHT FLASK SCRIPT
 THEN RUN WITH BELOW COMMAND
 
-"nohup python3 app.py &"
-
-ANY USE BELOW CODE IN YOUR PY SCRIPT
-
-"app.run(host='0.0.0.0', port=<PORT>):"
+"nohup gunicorn -w 4 --bind 0.0.0.0:<PORT> --timeout 120 app:app > output.log 2>&1 &"
 
 
 
