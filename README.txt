@@ -21,7 +21,7 @@ TTL "Auto"
 
 OPEN CLOUDFLARE AND GO TO YOUR DOMAIN
 THEN GO TO SSL/TLS SETTING
-THEN SWITCH ENCRYPTION MODE TO "Full (strict)"
+THEN SWITCH ENCRYPTION MODE TO "Full"
 
 
 
@@ -191,6 +191,23 @@ IF YOU RUN ANY PLAYWRIGHT FLASK SCRIPT
 THEN RUN WITH BELOW COMMAND
 
 "nohup gunicorn -w 4 --bind 0.0.0.0:<PORT> --timeout 120 app:app > output.log 2>&1 &"
+
+
+
+
+
+Traffic Allow By below command (Optional) 
+
+sudo ufw allow 'Nginx Full'
+
+To enable UFW, Run Below Command
+
+sudo ufw enable
+
+To check UFW Status run Below command
+
+sudo ufw status
+
 
 
 
