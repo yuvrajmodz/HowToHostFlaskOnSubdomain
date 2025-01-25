@@ -202,6 +202,8 @@ sudo ufw allow 'Nginx Full'
 
 To enable UFW, Run Below Command
 
+sudo apt install ufw
+
 sudo ufw enable
 
 To check UFW Status run Below command
