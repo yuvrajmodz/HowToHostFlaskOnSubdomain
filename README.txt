@@ -60,6 +60,10 @@ THEN REPLACE YOUR CODE TO BELOW CODE, FOR RUN YOUR APPLICATION ON YOUR CHOOSED P
 
 REPLACE <PORT> TO YOUR SPECIFIC PORT
 
+if You Use gevent then Add this code to your Flask app
+"from gevent import monkey
+monkey.patch_all()"
+
 
 
 
@@ -180,6 +184,7 @@ HOW TO REMOVE SUBDOMAIN, FOLLOW BELOW COMMAND, RUN BOTH COMMAND
 
 "sudo rm /etc/nginx/sites-available/<YOUR SUBDOMAIN WITHOUT http/https>"
 "sudo rm /etc/nginx/sites-enabled/<YOUR SUBDOMAIN WITHOUT http/https>"
+"sudo systemctl reload nginx"
 
 
 
@@ -191,6 +196,28 @@ IF YOU RUN ANY PLAYWRIGHT FLASK SCRIPT
 THEN RUN WITH BELOW COMMAND
 
 "nohup gunicorn -w 4 --bind 0.0.0.0:<PORT> --timeout 120 app:app > output.log 2>&1 &"
+
+
+
+
+
+PRO TIP 4
+
+For instantly Application Update, Run Below Command
+
+"nohup gunicorn -w 4 --bind 0.0.0.0:<PORT> --timeout 120 --pid gunicorn.pid app:app > output.log 2>&1 &"
+
+For Heavy Load Flask
+
+"nohup gunicorn -w 4 -k gevent --bind 0.0.0.0:<PORT> --timeout 120 app:app > output.log 2>&1 &"
+
+For Faatapi
+
+"nohup gunicorn -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:<PORT> --timeout 120 --pid gunicorn.pid app:app > output.log 2>&1 &"
+
+After Updates Then Run Below command in your Python app Directory
+
+"kill -HUP $(cat gunicorn.pid)"
 
 
 
